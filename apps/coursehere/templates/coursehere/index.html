@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>index</title>
+    {% load staticfiles %}
+  <link rel="stylesheet" href="{% static 'coursehere/css/index.css' %}">
+
+  </head>
+  <body>
+
+<div>
+<h2>Add a new course</h2>
+<form action='/process' method='POST'>
+  {% csrf_token %}
+<p>Name:<input type='text' name='name' value=''></p>
+Description:<textarea type='text' name='description' value=''></textarea>
+<input type='submit' name='submit' value='Add'>
+</form>
+</div>
+
+<div id='box'>
+<h2>Courses</h2>
+<table id='table'>
+<tr>
+<th>Course Name</th>
+<th>Description</th>
+<th>Date Added</th>
+<th>Actions</th>
+</tr>
+
+{% for tb in tables %}
+  <tr>
+    <td>{{tb.name}}</td>
+    <td>{{tb.description}}</td>
+    <td>{{tb.created_at}}</td>
+    <td><button type="button" name="button"><a href='/confirmpage/{{tb.id}}'>clear</a></button></td>
+  </tr>
+{% endfor %}
+
+</table>
+</div>
+  </body>
+</html>
